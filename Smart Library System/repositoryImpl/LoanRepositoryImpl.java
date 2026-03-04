@@ -1,22 +1,27 @@
 package repositoryImpl;
 
 import entity.Loan;
-import repository.LoanRepository;
-
 import java.util.ArrayList;
 import java.util.List;
+import repository.LoanRepository;
 
 public class LoanRepositoryImpl implements LoanRepository {
 
+    private static LoanRepositoryImpl instance;
     private List<Loan> loans = new ArrayList<>();
 
-    @Override
-    public void save(Loan loan) {
-        loans.add(loan);
+    private LoanRepositoryImpl() {}
+
+    public static synchronized LoanRepositoryImpl getInstance() {
+        if (instance == null) {
+            instance = new LoanRepositoryImpl();
+        }
+        return instance;
     }
 
     @Override
-    public List<Loan> findAll() {
-        return loans;
-    }
+    public void save(Loan loan) { loans.add(loan); }
+
+    @Override
+    public List<Loan> findAll() { return loans; }
 }

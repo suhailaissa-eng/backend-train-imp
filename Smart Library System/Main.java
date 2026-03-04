@@ -6,15 +6,13 @@ import repositoryImpl.MemberRepositoryImpl;
 import service.LibraryService;
 
 public class Main {
-
     public static void main(String[] args) {
 
-        BookRepositoryImpl bookRepo = new BookRepositoryImpl();
-        MemberRepositoryImpl memberRepo = new MemberRepositoryImpl();
-        LoanRepositoryImpl loanRepo = new LoanRepositoryImpl();
+        BookRepositoryImpl bookRepo = BookRepositoryImpl.getInstance();
+        MemberRepositoryImpl memberRepo = MemberRepositoryImpl.getInstance();
+        LoanRepositoryImpl loanRepo = LoanRepositoryImpl.getInstance();
 
-        LibraryService service =
-                new LibraryService(bookRepo, memberRepo, loanRepo);
+        LibraryService service = new LibraryService(bookRepo, memberRepo, loanRepo);
 
         bookRepo.save(new Book(1L,"Clean Code","Robert Martin"));
         bookRepo.save(new Book(2L,"Effective Java","Joshua Bloch"));
@@ -26,7 +24,6 @@ public class Main {
         service.borrowBook(2L,1L);
 
         service.printBooks();
-
         service.mostBorrowedBooks();
     }
 }

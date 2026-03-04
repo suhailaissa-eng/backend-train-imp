@@ -17,6 +17,11 @@ public class Loan {
     }
 
     public Long getMemberId() { return memberId; }
-
     public Long getBookId() { return bookId; }
+
+    @Override
+    public String toString() {
+        return "Loan{" + "id=" + id + ", memberId=" + memberId +
+               ", bookId=" + bookId + ", date=" + date + '}';
+    }
 }

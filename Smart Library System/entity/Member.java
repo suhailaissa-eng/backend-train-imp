@@ -11,6 +11,10 @@ public class Member {
     }
 
     public Long getId() { return id; }
-
     public String getName() { return name; }
+
+    @Override
+    public String toString() {
+        return "Member{" + "id=" + id + ", name='" + name + '\'' + '}';
+    }
 }
