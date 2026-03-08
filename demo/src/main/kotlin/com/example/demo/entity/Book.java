@@ -1,4 +1,4 @@
-package entity;
+package com.example.demo.entity;
 
 public class Book {
 
@@ -15,16 +15,28 @@ public class Book {
     }
 
     public Long getId() { return id; }
+
     public String getTitle() { return title; }
+
     public String getAuthor() { return author; }
+
     public boolean isAvailable() { return available; }
 
-    public void borrow() { this.available = false; }
-    public void returnBook() { this.available = true; }
+    public void borrow() {
+        this.available = false;
+    }
+
+    public void returnBook() {
+        this.available = true;
+    }
 
     @Override
     public String toString() {
-        return "Book{" + "id=" + id + ", title='" + title + '\'' +
-               ", author='" + author + '\'' + ", available=" + available + '}';
+        return "Book{" +
+                "id=" + id +
+                ", title='" + title + '\'' +
+                ", author='" + author + '\'' +
+                ", available=" + available +
+                '}';
     }
 }

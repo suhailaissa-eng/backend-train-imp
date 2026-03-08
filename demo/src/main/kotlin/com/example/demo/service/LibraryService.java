@@ -1,17 +1,19 @@
-package service;
+package com.example.demo.service;
 
-import entity.Loan;
+import com.example.demo.entity.Loan;
+import com.example.demo.repository.BookRepository;
+import com.example.demo.repository.LoanRepository;
+import com.example.demo.repository.MemberRepository;
 import java.util.Map;
 import java.util.stream.Collectors;
-import repository.BookRepository;
-import repository.LoanRepository;
-import repository.MemberRepository;
+import org.springframework.stereotype.Service;
 
+@Service
 public class LibraryService {
 
-    private BookRepository bookRepo;
-    private MemberRepository memberRepo;
-    private LoanRepository loanRepo;
+    private final BookRepository bookRepo;
+    private final MemberRepository memberRepo;
+    private final LoanRepository loanRepo;
 
     public LibraryService(BookRepository bookRepo,
                           MemberRepository memberRepo,

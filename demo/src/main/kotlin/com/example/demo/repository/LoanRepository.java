@@ -1,7 +1,6 @@
-package repository;
+package com.example.demo.repository;
 
-import entity.Loan;
-
+import com.example.demo.entity.Loan;
 import java.util.List;
 
 public interface LoanRepository {

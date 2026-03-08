@@ -1,4 +1,4 @@
-package entity;
+package com.example.demo.entity;
 
 import java.time.LocalDate;
 
@@ -16,12 +16,21 @@ public class Loan {
         this.date = LocalDate.now();
     }
 
-    public Long getMemberId() { return memberId; }
-    public Long getBookId() { return bookId; }
+    public Long getMemberId() {
+        return memberId;
+    }
+
+    public Long getBookId() {
+        return bookId;
+    }
 
     @Override
     public String toString() {
-        return "Loan{" + "id=" + id + ", memberId=" + memberId +
-               ", bookId=" + bookId + ", date=" + date + '}';
+        return "Loan{" +
+                "id=" + id +
+                ", memberId=" + memberId +
+                ", bookId=" + bookId +
+                ", date=" + date +
+                '}';
     }
 }
