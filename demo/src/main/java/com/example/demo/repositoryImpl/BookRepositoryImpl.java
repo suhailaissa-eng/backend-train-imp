@@ -3,6 +3,7 @@ package com.example.demo.repositoryImpl;
 import com.example.demo.entity.Book;
 import com.example.demo.repository.BookRepository;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import org.springframework.stereotype.Repository;
@@ -10,7 +11,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public class BookRepositoryImpl implements BookRepository {
 
-    private List<Book> books = new ArrayList<>();
+    private final List<Book> books = Collections.synchronizedList(new ArrayList<>());
 
     @Override
     public void save(Book book) {
@@ -20,8 +21,8 @@ public class BookRepositoryImpl implements BookRepository {
     @Override
     public Optional<Book> findById(Long id) {
         return books.stream()
-                .filter(b -> b.getId().equals(id))
-                .findFirst();
+                    .filter(b -> b.getId().equals(id))
+                    .findFirst();
     }
 
     @Override
