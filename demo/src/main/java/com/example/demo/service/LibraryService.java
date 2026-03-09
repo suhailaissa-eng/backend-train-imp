@@ -34,7 +34,8 @@ public class LibraryService {
                 .map(book -> {
                     if (book.isAvailable()) {
                         book.borrow();
-                        loanRepo.save(new Loan(System.currentTimeMillis(), memberId, bookId));
+                        bookRepo.save(book);
+                        loanRepo.save(new Loan(memberId, bookId, System.currentTimeMillis()));
                         return "Book borrowed successfully";
                     } else {
                         return "Book not available";

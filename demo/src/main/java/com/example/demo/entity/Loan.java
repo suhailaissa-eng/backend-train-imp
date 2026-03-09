@@ -1,24 +1,28 @@
 package com.example.demo.entity;
 
+import jakarta.persistence.*;
+
+@Entity
+@Table(name = "loans")
 public class Loan {
 
-    private Long timestamp;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
     private Long memberId;
     private Long bookId;
+    private Long timestamp;
 
     public Loan() {}
-
-    public Loan(Long timestamp, Long memberId, Long bookId) {
-        this.timestamp = timestamp;
+    public Loan(Long memberId, Long bookId, Long timestamp) {
         this.memberId = memberId;
         this.bookId = bookId;
+        this.timestamp = timestamp;
     }
 
-    public Long getTimestamp() { return timestamp; }
+    public Long getId() { return id; }
     public Long getMemberId() { return memberId; }
     public Long getBookId() { return bookId; }
-
-    public void setTimestamp(Long timestamp) { this.timestamp = timestamp; }
-    public void setMemberId(Long memberId) { this.memberId = memberId; }
-    public void setBookId(Long bookId) { this.bookId = bookId; }
+    public Long getTimestamp() { return timestamp; }
 }

@@ -1,11 +1,8 @@
 package com.example.demo.repository;
 
 import com.example.demo.entity.Loan;
-import java.util.List;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
-public interface LoanRepository {
-
-    void save(Loan loan);
-
-    List<Loan> findAll();
-}
+@Repository
+public interface LoanRepository extends JpaRepository<Loan, Long> {}
