@@ -2,20 +2,17 @@ package com.example.demo.services;
 
 import com.example.demo.entities.Loan;
 import com.example.demo.repositories.LoanRepository;
-import org.springframework.stereotype.Service;
-
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 @Service
 public class LoanService {
 
-    private final LoanRepository loanRepo;
-
-    public LoanService(LoanRepository loanRepo) {
-        this.loanRepo = loanRepo;
-    }
+    @Autowired
+    private LoanRepository loanRepo;
 
     public List<Loan> getAllLoans() {
         return loanRepo.findAll();

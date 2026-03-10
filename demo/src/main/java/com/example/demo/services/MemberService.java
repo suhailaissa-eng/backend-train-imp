@@ -2,18 +2,15 @@ package com.example.demo.services;
 
 import com.example.demo.entities.Member;
 import com.example.demo.repositories.MemberRepository;
-import org.springframework.stereotype.Service;
-
 import java.util.List;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 @Service
 public class MemberService {
 
-    private final MemberRepository memberRepo;
-
-    public MemberService(MemberRepository memberRepo) {
-        this.memberRepo = memberRepo;
-    }
+    @Autowired
+    private MemberRepository memberRepo;
 
     public List<Member> getAllMembers() {
         return memberRepo.findAll();
