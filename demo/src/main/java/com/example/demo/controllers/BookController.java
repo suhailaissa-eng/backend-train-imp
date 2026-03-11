@@ -1,43 +1,35 @@
 package com.example.demo.controllers;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
 import com.example.demo.entities.Book;
 import com.example.demo.services.BookService;
-import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("/books")
 public class BookController {
 
-    private final BookService bookService;
+    @Autowired
+    private BookService bookService;
 
-    public BookController(BookService bookService) {
-        this.bookService = bookService;
+    @GetMapping("/{id}")
+    public Book getBook(@PathVariable Long id) {
+        return bookService.getBookById(id);
     }
 
-    @GetMapping
-    public List<Book> getAllBooks() {
-        return bookService.getAllBooks();
+    @PostMapping("/borrow/{memberId}/{bookId}")
+    public String borrowBook(@PathVariable Long memberId, @PathVariable Long bookId) {
+        return bookService.borrowBook(bookId, memberId);
     }
 
-    @PostMapping
-    public Book addBook(@RequestBody Book book) {
-        return bookService.saveBook(book);
-    }
-
-    @PostMapping("/borrow/{id}")
-    public String borrowBook(@PathVariable Long id) {
-        Book book = bookService.getBookById(id);
-        if (book == null) return "Book not found";
-        return bookService.borrowBook(book);
-    }
-
-    @PostMapping("/return/{id}")
-    public String returnBook(@PathVariable Long id) {
-        Book book = bookService.getBookById(id);
-        if (book == null) return "Book not found";
-        bookService.returnBook(book);
+    @PostMapping("/return/{bookId}")
+    public String returnBook(@PathVariable Long bookId) {
+        bookService.returnBook(bookId);
         return "Book returned successfully";
     }
 }

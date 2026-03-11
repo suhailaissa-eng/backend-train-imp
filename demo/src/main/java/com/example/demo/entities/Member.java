@@ -1,7 +1,13 @@
 package com.example.demo.entities;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name = "members")
 public class Member {
@@ -11,12 +17,4 @@ public class Member {
     private Long id;
 
     private String name;
-
-    public Member() {}
-    public Member(String name) {
-        this.name = name;
-    }
-
-    public Long getId() { return id; }
-    public String getName() { return name; }
 }

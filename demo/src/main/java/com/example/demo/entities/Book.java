@@ -1,7 +1,15 @@
 package com.example.demo.entities;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
+@Data
+@NoArgsConstructor
 @Entity
 @Table(name = "books")
 public class Book {
@@ -12,19 +20,17 @@ public class Book {
 
     private String title;
     private String author;
+
     private boolean available = true;
 
-    public Book() {}
-    public Book(String title, String author) {
-        this.title = title;
-        this.author = author;
+     public boolean isAvailable() {
+        return available;
+    }
+    public void borrow() {
+        this.available = false;
     }
 
-    public Long getId() { return id; }
-    public String getTitle() { return title; }
-    public String getAuthor() { return author; }
-    public boolean isAvailable() { return available; }
-
-    public void borrow() { this.available = false; }
-    public void returnBook() { this.available = true; }
+    public void returnBook() {
+        this.available = true;
+    }
 }
