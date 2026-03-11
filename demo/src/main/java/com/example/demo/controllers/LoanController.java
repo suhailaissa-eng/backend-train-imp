@@ -1,11 +1,14 @@
 package com.example.demo.controllers;
 
-import com.example.demo.entities.Loan;
-import com.example.demo.services.LoanService;
-import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
 import java.util.Map;
+
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.example.demo.entities.Loan;
+import com.example.demo.services.LoanService;
 
 @RestController
 @RequestMapping("/loans")

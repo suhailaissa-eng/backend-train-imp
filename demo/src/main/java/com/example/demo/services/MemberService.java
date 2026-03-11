@@ -2,9 +2,10 @@ package com.example.demo.services;
 
 import com.example.demo.entities.Member;
 import com.example.demo.repositories.MemberRepository;
-import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class MemberService {
@@ -26,5 +27,9 @@ public class MemberService {
 
     public void deleteMember(Long id) {
         memberRepo.deleteById(id);
+    }
+
+    public List<Member> searchMembers(String name) {
+        return memberRepo.findByNameContainingIgnoreCase(name);
     }
 }

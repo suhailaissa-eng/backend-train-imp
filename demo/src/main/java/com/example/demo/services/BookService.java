@@ -52,4 +52,16 @@ public class BookService {
             bookRepo.save(book);
         }
     }
+
+    public List<Book> searchBooks(String keyword) {
+        return bookRepo.searchBooks(keyword);
+    }
+
+    public List<Book> getAvailableBooks() {
+        return bookRepo.findByAvailable(true);
+    }
+
+    public List<Object[]> getMostBorrowedBooksNative() {
+        return bookRepo.findMostBorrowedBooksNative();
+    }
 }

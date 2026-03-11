@@ -1,14 +1,11 @@
 package com.example.demo.controllers;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-
 import com.example.demo.entities.Book;
 import com.example.demo.services.BookService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/books")
@@ -31,5 +28,20 @@ public class BookController {
     public String returnBook(@PathVariable Long bookId) {
         bookService.returnBook(bookId);
         return "Book returned successfully";
+    }
+
+    @GetMapping("/search")
+    public List<Book> searchBooks(@RequestParam String keyword) {
+        return bookService.searchBooks(keyword);
+    }
+
+    @GetMapping("/available")
+    public List<Book> availableBooks() {
+        return bookService.getAvailableBooks();
+    }
+
+    @GetMapping("/most-borrowed")
+    public List<Object[]> mostBorrowedBooksNative() {
+        return bookService.getMostBorrowedBooksNative();
     }
 }
