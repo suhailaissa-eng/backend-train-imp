@@ -1,11 +1,13 @@
 package com.example.demo.services;
 
-import com.example.demo.entities.Member;
-import com.example.demo.repositories.MemberRepository;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
+import com.example.demo.entities.Member;
+import com.example.demo.exceptions.ResourceNotFoundException;
+import com.example.demo.repositories.MemberRepository;
 
 @Service
 public class MemberService {
@@ -22,7 +24,8 @@ public class MemberService {
     }
 
     public Member getMemberById(Long id) {
-        return memberRepo.findById(id).orElse(null);
+        return memberRepo.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Member with id " + id + " not found"));
     }
 
     public void deleteMember(Long id) {

@@ -1,13 +1,15 @@
 package com.example.demo.services;
 
-import com.example.demo.entities.Book;
-import com.example.demo.entities.Loan;
-import com.example.demo.repositories.BookRepository;
-import com.example.demo.repositories.LoanRepository;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
+import com.example.demo.entities.Book;
+import com.example.demo.entities.Loan;
+import com.example.demo.exceptions.ResourceNotFoundException;
+import com.example.demo.repositories.BookRepository;
+import com.example.demo.repositories.LoanRepository;
 
 @Service
 public class BookService {
@@ -27,7 +29,8 @@ public class BookService {
     }
 
     public Book getBookById(Long id) {
-        return bookRepo.findById(id).orElse(null);
+        return bookRepo.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Book with id " + id + " not found"));
     }
 
     public void deleteBook(Long id) {
@@ -35,9 +38,12 @@ public class BookService {
     }
 
     public String borrowBook(Long bookId, Long memberId) {
-        Book book = bookRepo.findById(bookId).orElse(null);
-        if (book == null) return "Book not found";
-        if (!book.isAvailable()) return "Book not available";
+        Book book = bookRepo.findById(bookId)
+                .orElseThrow(() -> new ResourceNotFoundException("Book with id " + bookId + " not found"));
+
+        if (!book.isAvailable()) {
+            throw new RuntimeException("Book not available");
+        }
 
         book.borrow();
         bookRepo.save(book);
@@ -46,11 +52,10 @@ public class BookService {
     }
 
     public void returnBook(Long bookId) {
-        Book book = bookRepo.findById(bookId).orElse(null);
-        if (book != null) {
-            book.returnBook();
-            bookRepo.save(book);
-        }
+        Book book = bookRepo.findById(bookId)
+                .orElseThrow(() -> new ResourceNotFoundException("Book with id " + bookId + " not found"));
+        book.returnBook();
+        bookRepo.save(book);
     }
 
     public List<Book> searchBooks(String keyword) {
