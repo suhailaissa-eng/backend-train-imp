@@ -8,8 +8,11 @@ import jakarta.persistence.Table;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import lombok.*;
+
 @Data
 @NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name = "books")
 public class Book {
@@ -23,9 +26,6 @@ public class Book {
 
     private boolean available = true;
 
-     public boolean isAvailable() {
-        return available;
-    }
     public void borrow() {
         this.available = false;
     }

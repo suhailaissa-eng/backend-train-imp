@@ -21,12 +21,13 @@ public interface BookRepository extends JpaRepository<Book, Long> {
     @Query("SELECT b FROM Book b WHERE b.title LIKE %:keyword% OR b.author LIKE %:keyword%")
     List<Book> searchBooks(@Param("keyword") String keyword);
 
+
     @Query(
-        value = "SELECT b.id, b.title, b.author, COUNT(l.id) AS borrow_count " +
-                "FROM books b LEFT JOIN loans l ON b.id = l.book_id " +
-                "GROUP BY b.id, b.title, b.author " +
-                "ORDER BY borrow_count DESC",
-        nativeQuery = true
+            value = "SELECT b.id, COALESCE(b.title, 'No Title'), COALESCE(b.author, 'Unknown'), COUNT(l.id) AS borrow_count " +
+                    "FROM books b LEFT JOIN loans l ON b.id = l.book_id " +
+                    "GROUP BY b.id, b.title, b.author " +
+                    "ORDER BY borrow_count DESC",
+            nativeQuery = true
     )
     List<Object[]> findMostBorrowedBooksNative();
 }

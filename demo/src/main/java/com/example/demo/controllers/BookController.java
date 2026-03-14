@@ -21,10 +21,10 @@ public class BookController {
         return new ApiResponse<Book>(true, 200, "Book retrieved successfully", book);
     }
     @GetMapping
-public ApiResponse<List<Book>> getAllBooks() {
-    List<Book> books = bookService.getAllBooks();
-    return new ApiResponse<>(true, 200, "All books retrieved", books);
-}
+    public ApiResponse<List<Book>> getAllBooks() {
+        List<Book> books = bookService.getAllBooks();
+        return new ApiResponse<>(true, 200, "All books retrieved", books);
+    }
 
     @PostMapping
     public ApiResponse<Book> createBook(@RequestBody Book book) {
@@ -60,5 +60,10 @@ public ApiResponse<List<Book>> getAllBooks() {
     public ApiResponse<List<Object[]>> mostBorrowedBooksNative() {
         List<Object[]> books = bookService.getMostBorrowedBooksNative();
         return new ApiResponse<List<Object[]>>(true, 200, "Most borrowed books retrieved successfully", books);
+    }
+    @DeleteMapping("/{id}")
+    public ApiResponse<Void> deleteBook(@PathVariable Long id) {
+        bookService.deleteBook(id);
+        return new ApiResponse<>(true, 200, "Book deleted successfully", null);
     }
 }
