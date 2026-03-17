@@ -5,7 +5,7 @@ import com.example.demo.entities.Book;
 import com.example.demo.services.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
+import org.springframework.security.access.prepost.PreAuthorize;
 import java.util.List;
 
 @RestController
@@ -27,6 +27,7 @@ public class BookController {
     }
 
     @PostMapping
+    @PreAuthorize("hasRole('ADMIN')")
     public ApiResponse<Book> createBook(@RequestBody Book book) {
         Book savedBook = bookService.saveBook(book);
         return new ApiResponse<Book>(true, 201, "Book created successfully", savedBook);
@@ -62,6 +63,7 @@ public class BookController {
         return new ApiResponse<List<Object[]>>(true, 200, "Most borrowed books retrieved successfully", books);
     }
     @DeleteMapping("/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
     public ApiResponse<Void> deleteBook(@PathVariable Long id) {
         bookService.deleteBook(id);
         return new ApiResponse<>(true, 200, "Book deleted successfully", null);
